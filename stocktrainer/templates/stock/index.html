@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<div style="margin-left: 160px; margin-right: 160px">
+    <div class="jumbotron" style="margin-top:15px; border:1px solid black">
+      <h1 class="display-4"><b><i><u>FORTUNE 500</u></i></b> <i>Companies</i></h1>
+      <p class="lead">This is a simple website where you can watchlist, buy and sell your favourite stocks and get all information about them and earn virtual money based on realtime prices.</p>
+      <hr class="my-4">
+          <form method='POST' style="float: left">
+            {% csrf_token %}
+            Enter Starting Letters or Name of Company: </br>
+            <input type="text" name="filter" style="margin-top: 5px">&nbsp&nbsp
+            <button type="submit" class="btn btn-primary btn-sm" name="search">Search</button>&nbsp&nbsp
+            <button type="submit" class="btn btn-primary btn-sm" name="refresh">Refresh</button>
+          </form>
+        </br>
+        <p style="margin-left: 940px; margin-bottom: -40px"><a href="{% url 'profile' request.user.pk %}" class="btn btn-primary">Visit Your Profile</a></p>
+    </div>
+
+{% for i in all_stocks %}
+    <div class="list-group" style="border-top: 1px solid gray; border-left: 1px solid gray; box-shadow: 3px 3px #CCC;">
+  <a href="{% url 'detail' i.pk %}" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"><b><u>{{i.name}}</u></b></h5>
+      <small><b>EPS: </b> {{i.last_annual_eps}}</small>
+    </div>
+    <p class="mb-1"><b>Sector: </b> {{i.sector}}</p>
+    <small><b>Industry: </b> {{i.industry}}</small>
+  </a>
+</div></br>
+{% endfor %}
+</div>
+  </body>
+</html>
